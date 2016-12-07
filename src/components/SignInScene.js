@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet, Modal, ActivityIndicator } from 'react-native';
 import Dimensions from 'Dimensions'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {globals, host} from './../../constants/globals'
+import {globals, host} from './../constants/globals'
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import axios from 'axios';
-import AppComponent from './../../models/AppComponent'
+import AppComponent from './../models/AppComponent'
 
 class SignInScene extends AppComponent {
   constructor(props) {
@@ -43,7 +43,6 @@ class SignInScene extends AppComponent {
               }
             }
           `)
-		  alert(JSON.stringify(response.authenticateFacebookUser));
           this.app.user.fromJson(response.authenticateFacebookUser);
           this.app.user.save();
           this.setState({isSigningIn: false});
@@ -67,7 +66,7 @@ class SignInScene extends AppComponent {
     let h = Dimensions.get('window').height
     return (
       <View>
-        <Image source={require('./../../images/ski-friends.jpg')} style={[{width: w, height: h}, styles.container]}>
+        <Image source={require('./../images/ski-friends.jpg')} style={[{width: w, height: h}, styles.container]}>
           <Text style={styles.title}>Skiing</Text>
           <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={this.loginWithFacebook.bind(this)}>
             Login with Facebook

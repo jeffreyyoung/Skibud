@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet, Navigator, AsyncStorage } from 'react-native';
-import SignInScene from './../components/launch/SignInScene'
-import InitialSettingsScene from './../components/launch/InitialSettingsScene'
+import SignInScene from './../components/SignInScene'
+import InitialSettingsScene from './../components/ResortSelectorScene'
 import App from './../App'
 import user from './../models/AuthenticatedUser'
 import uiState from './../models/UIState';

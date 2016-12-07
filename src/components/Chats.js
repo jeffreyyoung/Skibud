@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { ListView, Text, TouchableOpacity } from 'react-native'
-import MessageListViewCell from './friendCell'
-import AppComponent from './../../../models/AppComponent'
+import { View, Image, Text, StyleSheet, TouchableOpacity, ListView } from 'react-native'
+import { globals } from './../constants/globals'
+import Dimensions from 'Dimensions'
+import AppComponent from './../models/AppComponent'
 let data = [
   {
     name: 'Mark',
@@ -30,7 +31,7 @@ class MessagesList extends AppComponent {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={rowData => <MessageListViewCell {...rowData} navigator={this.props.navigator}/>}
+        renderRow={rowData => <FriendCell {...rowData} navigator={this.props.navigator}/>}
       />
     )
   }
@@ -39,12 +40,6 @@ class MessagesList extends AppComponent {
 export default MessagesList
 
 
-
-import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { globals } from './../../../constants/globals'
-import Dimensions from 'Dimensions'
-import AppComponent from './../../../models/AppComponent'
 const message = 'asdfjklljkasf jklasdfl jkasdfj kladsfj l jkadfsjkl asdfljk afsd asdf jkajlsdfj lasjf lkjlkafsdjkl afsdjk lfasjkl afsjk lfsajl kafsjkl fsadjlk dsfa jklafdsjl kafsdjl k'
 
 class FriendCell extends AppComponent {

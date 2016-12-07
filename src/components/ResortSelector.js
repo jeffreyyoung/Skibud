@@ -4,12 +4,12 @@ import axios from 'axios'
 import _ from 'lodash';
 import Dimensions from 'Dimensions'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { globals } from './../../constants/globals'
-import H2 from './../shared/H1'
+import { globals } from './../constants/globals'
+import H2 from './shared/H1'
 import MultipleChoice from 'react-native-multiple-choice'
-import Button from './../shared/Button'
-import AppComponent from './../../models/AppComponent'
-import Resort from './../../models/Resort'
+import Button from './shared/Button'
+import AppComponent from './../models/AppComponent'
+import Resort from './../models/Resort'
 function distance(lat1, lon1, lat2, lon2) {
   var p = 0.017453292519943295;    // Math.PI / 180
   var c = Math.cos;

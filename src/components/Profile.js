@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, StatusBar } from 'react-native';
-import { globals } from './../../constants/globals'
+import { globals } from './../constants/globals'
 import Swiper from 'react-native-swiper';
 import Image from 'react-native-image-progress';
 import Dimensions from 'Dimensions'
-import AppComponent from './../../models/AppComponent';
+import AppComponent from './../models/AppComponent';
 class ProfileDetailScene extends AppComponent {
   constructor(props) {
     super(props);

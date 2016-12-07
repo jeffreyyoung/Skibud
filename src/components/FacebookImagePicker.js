@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Text, View, ListView, StyleSheet, StatusBar, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LoginManager } from 'react-native-fbsdk'
-import { globals } from './../../constants/globals'
+import { globals } from './../constants/globals'
 import Swiper from 'react-native-swiper';
 import Image from 'react-native-image-progress';
 import Dimensions from 'Dimensions'
-import AppComponent from './../../models/AppComponent'
-import Button from './../shared/Button'
-import FacebookPhotoRequestor from './../../services/FacebookPhotoRequest.js';
+import AppComponent from './../models/AppComponent'
+import Button from './shared/Button'
+import FacebookPhotoRequestor from './../services/FacebookPhotoRequest.js';
 import GridView from 'react-native-grid-view';
 import _ from 'lodash';
-import H1 from './../shared/H1'
+import H1 from './shared/H1'
 const MAX_SELECTED_PHOTOS = 5;
 const IMAGES_PER_ROW = 4;
 export default class FacebookImagePicker extends AppComponent {

@@ -5,10 +5,10 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import NavigationBar from 'react-native-navbar';
 
 import BuddyFinder from './../components/BuddyFinder'
-import Chat from './../components/chat/messagesScene'
-import ChatList from './../components/chat/friends'
-import ProfileDetail from './../components/profileDetail'
-import SelfProfile from './../components/profileDetail/self'
+import Chat from './../components/Chat'
+import ChatList from './../components/Chats'
+import ProfileDetail from './../components/Profile'
+import SelfProfile from './../components/EditableProfile'
 import EventsScene from './../components/Events'
 import EventDetail from './../components/Events/EventDetail'
 import NewEventScene from './../components/NewEvent'

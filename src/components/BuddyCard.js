@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { globals } from './../../constants/globals'
+import { globals } from './../constants/globals'
 import Dimensions from 'Dimensions'
 import Image from 'react-native-image-progress';
 import _ from 'lodash'
 import { Actions } from 'react-native-router-flux';
-import AppComponent from './../../models/AppComponent';
+import AppComponent from './../models/AppComponent';
 
 class BuddyCard extends AppComponent {
   // Initialize the hardcoded data

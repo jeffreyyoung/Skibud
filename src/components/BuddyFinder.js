@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { globals } from './../../constants/globals'
+import { globals } from './../constants/globals'
 import Dimensions from 'Dimensions'
 import _ from 'lodash'
 import BuddyCard from './BuddyCard'
 import SwipeCardsContainer from 'react-native-swipe-cards'
-import AppComponent from './../../models/AppComponent';
+import AppComponent from './../models/AppComponent';
 class BuddyFinder extends AppComponent {
   // Initialize the hardcoded data
   constructor(props) {

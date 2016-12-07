@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { LoginManager } from 'react-native-fbsdk'
-import { globals } from './../../constants/globals'
+import { globals } from './../constants/globals'
 import Swiper from 'react-native-swiper';
 import Image from 'react-native-image-progress';
 import Dimensions from 'Dimensions'
-import AppComponent from './../../models/AppComponent'
-import Button from './../shared/Button'
+import AppComponent from './../models/AppComponent'
+import Button from './shared/Button'
 import FacebookImagePicker from './FacebookImagePicker';
-import FacebookPhotoRequestor from './../../services/FacebookPhotoRequest.js';
+import FacebookPhotoRequestor from './../services/FacebookPhotoRequest.js';
 import _ from 'lodash';
 class ProfileDetailScene extends AppComponent {
   constructor(props) {
