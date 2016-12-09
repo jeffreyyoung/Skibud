@@ -11,18 +11,22 @@ class ProfileDetailScene extends AppComponent {
   }
 
   render() {
-    let {name, age, photos} = this.props;
+    let {firstName, photos, resorts, bio} = this.props;
     
     let images = photos.map(p => p.large)
     
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
-        <Swiper style={styles.wrapper} showsButtons={false} loop={false} height={Dimensions.get('window').height * .5}>
-          {images.map(uri => (<Image style={styles.image} key={uri} source={{uri: uri}}/>))}
-        </Swiper>
-        <Text>{name}</Text>
-        <Text>{age}</Text>
-        <Text>{JSON.stringify(images)}</Text>
+      <ScrollView style={{backgroundColor: globals.gray}}>
+	  	<View style={{backgroundColor: globals.white}}>
+	        <Swiper style={styles.wrapper} showsButtons={false} loop={false} height={Dimensions.get('window').height * .5}>
+	          {images.map(uri => (<Image style={styles.image} key={uri} source={{uri: uri}}/>))}
+	        </Swiper>
+			<View style={styles.infoContainer}>
+	        	<Text style={styles.name}>{firstName}</Text>
+	        	<Text style={styles.bio}>{bio}</Text>
+				<Text style={styles.resortList}>{firstName} skis at {resorts.map(r => r.name).join(', ')}</Text>
+			</View>
+		</View>
       </ScrollView>
     );
   }
@@ -33,6 +37,22 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 300
   },
+  infoContainer: {
+	padding: globals.fullPadding  
+  },
+  name: {
+	fontSize: 18,
+	fontWeight: 'bold',
+	},
+	bio: {
+		paddingTop: globals.halfPadding,
+		fontSize: 16
+	},
+	resortList: {
+		paddingTop: globals.fullPadding * 2,
+		fontSize: 16,
+		color: 'gray'
+	},
   image: {
     width: (Dimensions.get('window').width),
     height: (Dimensions.get('window').height * .5),

@@ -13,12 +13,24 @@ class BuddyCard extends AppComponent {
     super(props);
   }
   
+	getCommonResortsString(resorts1, resorts2) {
+		let resorts2Map = _.keyBy(resorts2, '_id');
+		let commonResortNames = [];
+		for (let r of resorts1) {
+			if (resorts2Map[r._id]) {
+				commonResortNames.push(r.name)
+			}
+		}
+		
+		return `You both ski at ${commonResortNames.join(', ')}`
+	}
+  
   onPress() {
-    this.app.ui.segway('profileDetail', this.props);
+    this.app.ui.segway('profileDetail', {title: this.props.firstName, ...this.props});
   }
   
   render() {
-    let {name, age, photos} = this.props;
+    let {firstName, age, photos, resorts} = this.props;
 	let imageUri = _.get(photos, '[0].large');
     return (
       <TouchableWithoutFeedback onPress={this.onPress.bind(this)}>
@@ -27,12 +39,12 @@ class BuddyCard extends AppComponent {
             <Image style={styles.image} source={{uri: imageUri}}/>
           </View>
           <View style={styles.info}>
-            <Text style={styles.name}>{name}, <Text style={styles.name}>{age}</Text></Text>
+            <Text style={styles.name}>{firstName}, <Text style={styles.name}>{age}</Text></Text>
             <View style={styles.icons}>
               <Text>something here</Text>
             </View>
           </View>
-          <Text>{`You both ski at Alta, Sundance and Snowbird`}</Text>
+          <Text>{this.getCommonResortsString(this.app.user.resorts, resorts)}</Text>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -49,7 +61,14 @@ const styles = StyleSheet.create(
       borderColor: globals.secondaryColor,
       borderRadius: globals.halfPadding,
 	  overflow: 'hidden',
-	  backgroundColor: 'white'
+	  backgroundColor: 'white',
+	  shadowColor: "#000000",
+	     shadowOpacity: 0.8,
+	     shadowRadius: 2,
+	     shadowOffset: {
+	       height: 1,
+	       width: 0
+	     }
     },
     imageContainer: {
       alignItems: 'center',

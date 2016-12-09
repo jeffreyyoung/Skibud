@@ -102,12 +102,11 @@ export default class FacebookImagePicker extends AppComponent {
   render() {
     return (
 		<View>
-			<Button onPress={this.saveSelectedImages.bind(this)}>Set as profile images...</Button>
 			<ListView
 				contentContainerStyle={styles.list}
 				dataSource={this.state.imagesDs}
 				renderRow={(photo) => {
-					return (<SelectableImage key={photo.id} uri={photo.thumbnail} onPress={this.togglePhoto.bind(this, photo.thumbnail)} isSelected={this.isPhotoSelected(photo.thumbnail)} />)
+					return (<SelectableImage key={photo.id} uri={photo.thumbnail} onPress={this.props.onPhotoSelect.bind(this, photo)} isSelected={this.isPhotoSelected(photo.thumbnail)} />)
 				}}
 			/>
 			<ActivityIndicator animating={this.state.loading} />

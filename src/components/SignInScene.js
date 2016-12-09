@@ -20,7 +20,7 @@ class SignInScene extends AppComponent {
     
     try {
         setTimeout(async () => {
-          let facebookResult = await LoginManager.logInWithReadPermissions([ 'email', 'user_friends', 'public_profile', 'user_photos']);
+          let facebookResult = await LoginManager.logInWithReadPermissions([ 'email', 'user_friends', 'public_profile', 'user_photos' ]);
           if (facebookResult.isCancelled) {
             this.setState({isSigningIn: false});
             return;
@@ -40,6 +40,12 @@ class SignInScene extends AppComponent {
 					thumbnail
 					large
 				}
+				resorts {
+					_id
+					name
+				}
+				resortIds
+				bio
               }
             }
           `)
@@ -48,9 +54,10 @@ class SignInScene extends AppComponent {
           this.setState({isSigningIn: false});
           this.app.ui.launchSegway('InitialSettingsScene')
           return 'yay';
-        }, 150)
+	  }, 500)
         
     } catch (e) {
+	alert('Unable to sign in');
       console.error('failed request')
       this.setState({isSigningIn: false});
       this.alert('There was an error logging in...');

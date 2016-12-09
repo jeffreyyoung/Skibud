@@ -55,6 +55,9 @@ class ResortSelector extends AppComponent {
 				.map(r => {
 					r.distanceAway = distance(latitude, longitude, r.coordinates.lat, r.coordinates.lon);
 					r.selected = false;
+					if (this.props.selectedResortIds && this.props.selectedResortIds.indexOf(r._id) > -1) {
+						r.selected = true;
+					}
 					return r;
 				})
 				.sortBy(r => r.distanceAway)
@@ -76,25 +79,7 @@ class ResortSelector extends AppComponent {
   componentDidMount() {
     this.loadNearestResorts();
   }
-  async onContinue() {
-	this.setState({'disabled': true});
-	let selectedResorts = this.state.resorts.filter(r => r.selected)
-	let selectedResortIds = selectedResorts.map(r => r._id);
-	if (selectedResorts.length === 0) {
-		alert('You must select at least one resort.');
-		return;
-	}
-	let r = await this.app.graphql(`
-		mutation {
-			updateResorts(resortIds: ${JSON.stringify(selectedResortIds)})
-		}
-	`);
-	this.app.user.resorts = selectedResorts;
-	this.app.user.resortIds = selectedResortIds;
-	this.app.user.save();
-	this.app.ui.launchSegway('app');
-  }
-  
+
   onSelection(resort) {
 	let newResorts = this.state.resorts.slice();
 	for (let r of newResorts) {
@@ -104,6 +89,10 @@ class ResortSelector extends AppComponent {
 		resorts: newResorts,
 		resortsDs: this.ds.cloneWithRows(newResorts)
 	})
+	
+	if (this.props.onSelection) {
+		this.props.onSelection(newResorts.filter(r => r.selected));
+	}
   }
   render() {
     return (
@@ -117,7 +106,6 @@ class ResortSelector extends AppComponent {
 				)
 			}}
         /> : <ActivityIndicator style={{paddingTop: 10}}/>}
-        {!this.state.loading ? <Button onPress={this.onContinue.bind(this)}>Continue...</Button> : null }
       </View>
     );
   }

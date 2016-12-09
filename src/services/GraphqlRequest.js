@@ -2,7 +2,7 @@ import axios from 'axios';
 import {host} from './../constants/globals'
 import user from './../models/AuthenticatedUser'
 
-let graphqlRequest = async(query = "", variables = false) => {
+let graphqlRequest = async(query = "", variables = {}) => {
   
   console.log('HERES THE QUERY',query);
   let body = {
@@ -18,18 +18,26 @@ let graphqlRequest = async(query = "", variables = false) => {
   }
   
   console.log('SENDING BODY', body);
-  
+  console.log('HAS VARIABLES', !!variables);
   if (user.token && user.token !== '') {
 	  console.log('TOKEN', user.token);
     options.headers['x-access-token'] = user.token;
-    options.headers['Content-Type'] = variables ? 'application/graphql' : 'application/json';
+    options.headers['Content-Type'] = 'application/json';
+	options.headers['Accept'] = 'application/json'
   }
   
   console.log('sending shiz', body);
-  let response = await fetch(options.url+`?query=${query}`, options)
-  console.log('GOT A RESPONSE', response);
-  if (!response.ok) { throw 'Poop'}
-  return JSON.parse(response._bodyText).data;
+  let response = await fetch(options.url+ `?query=${query}`, options)
+  console.log('getting a response');
+  let responseJson = await response.json();
+  console.log('got a response', JSON.stringify(responseJson, null, 3));
+  if (!response.ok) { throw responseJson}
+  try {
+	return responseJson.data;
+} catch(e) {
+	throw e;
+}
+  
 }
 
 export default graphqlRequest;

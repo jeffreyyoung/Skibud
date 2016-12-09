@@ -9,6 +9,7 @@ import AppComponent from './../models/AppComponent'
 import Button from './shared/Button'
 import FacebookImagePicker from './FacebookImagePicker';
 import FacebookPhotoRequestor from './../services/FacebookPhotoRequest.js';
+import Profile from './Profile'
 import _ from 'lodash';
 class ProfileDetailScene extends AppComponent {
   constructor(props) {
@@ -34,23 +35,15 @@ class ProfileDetailScene extends AppComponent {
     this.app.user.save();
     this.app.ui.launchSegway('SignInScene')
   }
-  
+  //https://github.com/ollija/react-native-sortable-grid
   render() {
     let {name, picture} = this.app.user;
-    
-    //let images = [picture]
-    
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
-		<Swiper style={styles.wrapper} showsButtons={false} loop={false} height={Dimensions.get('window').height * .5}>
-			{this.app.user.photos.map(photo => (<Image style={styles.image} key={photo.large} source={{uri: photo.large}}/>))}
-		</Swiper>
-		<View style={{padding: globals.fullPadding}}>
-			<Text>{name}</Text>
-			<Text>You ski at and would like to match with others who ski at: {this.app.user.resorts.map(r => r.name).join(', ')}</Text>
+      <ScrollView style={{backgroundColor: globals.gray}}>
+	  	<Profile {...this.app.user} />
+		<View style={{paddingTop: 100, paddingLeft: globals.fullPadding, paddingRight: globals.fullPadding}}>
 			<Button onPress={this.logOut.bind(this)}>Log Out</Button>
 		</View>
-		<FacebookImagePicker />
       </ScrollView>
     );
   }

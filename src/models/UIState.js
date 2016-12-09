@@ -10,8 +10,8 @@ class UIState {
     }
   }
   
-  segway(scene, nextSceneProps = {}, isModal = false) {
-    this.navigator.push({scene: scene, props: nextSceneProps, fromBottom: isModal});
+  segway(scene, nextSceneProps = {}, custom = {}) {
+    this.navigator.push({scene: scene, props: nextSceneProps, custom: custom});
   }
   
   launchSegway(scene, nextSceneProps = {}) {
