@@ -1,5 +1,6 @@
+import _ from 'lodash';
 import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet, TouchableOpacity, ListView } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableOpacity, ListView, RefreshControl } from 'react-native'
 import { globals } from './../constants/globals'
 import Dimensions from 'Dimensions'
 import AppComponent from './../models/AppComponent'
@@ -22,15 +23,55 @@ class MessagesList extends AppComponent {
   constructor(props, context) {
     super(props, context);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(data)
-    }
+	this.ds = ds;
+	this.state = {
+		dataSource: ds,
+	  	rows: ds.cloneWithRows([]),
+		refreshing: false,
+	}
   }
-  
+	
+	async refresh() {
+		this.setState({refreshing: true});
+		try {
+			let data = await this.app.graphql(`
+				query {
+					matches {
+						firstName
+						resorts {
+							name
+						}
+						photos {
+							thumbnail
+							large
+						}
+					}
+				}
+			`);
+			this.setState({rows: this.state.dataSource.cloneWithRows(data.matches)})
+		} catch (e) {
+			alert('There was an error loading matches' + JSON.stringify(e, null, 3));
+			console.log(JSON.stringify(e, null, 3));
+		} finally {
+			this.setState({refreshing: false});
+		}
+		
+	}
+	
+	componentDidMount() {
+		this.refresh();
+	}
+	
   render() {
     return (
       <ListView
-        dataSource={this.state.dataSource}
+	  	refreshControl={
+			<RefreshControl
+				refreshing={this.state.refreshing}
+				onRefresh={this.refresh.bind(this)}
+			/>
+		}
+        dataSource={this.state.rows}
         renderRow={rowData => <FriendCell {...rowData} navigator={this.props.navigator}/>}
       />
     )
@@ -48,11 +89,11 @@ class FriendCell extends AppComponent {
     return (
       <TouchableOpacity onPress={() => this.app.ui.segway('chat', props)}>
         <View style={styles.container}>
-          <Image source={{uri: props.imageUri}}style={styles.image} />
+          <Image source={{uri: _.get(props, 'photos[0].thumbnail')}}style={styles.image} />
           <View style={{flexWrap: 'wrap'}}>
-            <Text style={styles.name}>{props.name}</Text>
+            <Text style={styles.name}>{props.firstName}</Text>
             <View style={{flexDirection:'row', flex: 1, width: 100, flexWrap: 'wrap'}}>
-              <Text ellipsizeMode='tail' numberOfLines={2} style={styles.messagePreview}>{message}</Text>
+              <Text ellipsizeMode='tail' numberOfLines={2} style={styles.messagePreview}>{this.props.lastMessage ? this.props.lastMessage : `Send ${props.firstName} a message`}</Text>
             </View>
           </View>
         </View>

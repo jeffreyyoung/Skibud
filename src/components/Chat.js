@@ -1,6 +1,7 @@
 import { GiftedChat } from 'react-native-gifted-chat';
 import React, { Component } from 'react'
 import {StyleSheet, View} from 'react-native'
+import _ from 'lodash';
 
 class Chat extends Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class Chat extends Component {
           createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
           user: {
             _id: 2,
-            name: this.props.name,
-            avatar: this.props.imageUri
+            name: this.props.firstName,
+            avatar: _.get(this.props, 'photos[0].thumbnail')
           },
         },
       ],

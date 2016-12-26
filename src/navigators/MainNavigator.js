@@ -52,9 +52,9 @@ var NavigationBarRouteMapper = {
       return route.props.renderRightButton(navigator);
 	} else if (route.scene === 'selfProfile') {
 		let onEditPress = () => {
-			alert('here');
 			uiState.segway('profileBuilder', {}, {
 				onBack: () => {
+					app.user.photos = app.user.orderedPhotos;
 					app.user.save(true);
 				}
 			})

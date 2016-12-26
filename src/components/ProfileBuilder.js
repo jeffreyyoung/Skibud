@@ -22,7 +22,7 @@ class ProfileBuilder extends AppComponent {
 	}
 	
 	componentDidMount() {
-		
+		this.app.user.orderedPhotos = this.app.user.photos;
 	}
 	
 	onPhotoSelect(photo) {
@@ -31,18 +31,21 @@ class ProfileBuilder extends AppComponent {
 	}
 	
 	onPhotoReorder(data) {
-		alert(JSON.stringify(data));
+		//alert(JSON.stringify(data));
 		let nextPhotos = [];
 		let orderedPhotos = _.sortBy(data.itemOrder, item => item.order)
 		for (let orderedPhoto of orderedPhotos) {
 			let i = _.findIndex(this.app.user.photos, userPhoto => userPhoto.thumbnail === orderedPhoto.key);
 			nextPhotos.push(this.app.user.photos[i]);
 		}
-		this.app.user.photos = nextPhotos;
+		this.app.user.orderedPhotos = nextPhotos;
 	}
 	
 	onPhotoDoubleTap(data) {
-		alert(JSON.stringify(data));
+		let i = _.findIndex(this.app.user.photos, userPhoto => userPhoto.thumbnail === data.thumbnail);
+		if (i > -1) {
+			this.app.user.photos.splice(i, 1);
+		}
 	}
 	
 	addFacebookPhoto() {
@@ -91,16 +94,15 @@ class ProfileBuilder extends AppComponent {
 			<ScrollView style={styles.container}>
 				<View style={[styles.attributeContainer, styles.sortableContainer]}>
 					<Text style={styles.attributeLabel}>Photos</Text>
-					<Text style={styles.attributeSubLabel}>Select up to 5 photos. Drag to reorder, double tap to delete.</Text>
+					<Text style={styles.attributeSubLabel}>Select up to 5 photos. Drag to reorder, tap to delete.</Text>
 					<SortableGrid 
 						itemsPerRow={4}
 						onDragRelease={this.onPhotoReorder.bind(this)}
 						style={{flex:1}}
-						onDoubleTap={this.onPhotoDoubleTap.bind(this)}
 					>
 					  {
 					    this.user.photos.map( (p, index) =>
-					      <View key={p.thumbnail} style={styles.imageContainer}>
+					      <View key={p.thumbnail} onTap={this.onPhotoDoubleTap.bind(this, p)} style={styles.imageContainer}>
 					        <Image style={styles.draggableImage} source={{uri: p.thumbnail}}/>
 					      </View>
 

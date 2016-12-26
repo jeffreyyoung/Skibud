@@ -15,18 +15,11 @@ class ProfileDetailScene extends AppComponent {
   constructor(props) {
     super(props);
 	this.state = {
-		images: []
 	}
-	this.photosRequestor = new FacebookPhotoRequestor(this.app.user.facebookId, this.app.user.facebookToken);
   }
   
   componentDidMount() {
-	setTimeout(async () => {
-		await this.photosRequestor.loadMorePhotos();
-		this.setState({
-			images: _.map(this.photosRequestor.getPhotos(), 'large')
-		})
-	}, 2000);
+	  
   }
   
   logOut() {

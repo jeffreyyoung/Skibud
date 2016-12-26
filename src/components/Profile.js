@@ -12,7 +12,6 @@ class ProfileDetailScene extends AppComponent {
 
   render() {
     let {firstName, photos, resorts, bio} = this.props;
-    
     let images = photos.map(p => p.large)
     
     return (

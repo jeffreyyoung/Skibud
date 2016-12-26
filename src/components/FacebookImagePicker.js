@@ -86,17 +86,11 @@ export default class FacebookImagePicker extends AppComponent {
 		let imagesToSave = this.getSelectedImageObjects();
 		let formated = _.map(imagesToSave, _.partial(_.ary(_.pick, 2), _, ['large', 'thumbnail']));
 		let jsonifiedImages = JSON.stringify(formated);
-		alert(`
-			mutation {
-				updatePhotos(photos: ${jsonifiedImages})
-			}
-		`);
 		await this.app.graphql(`
 			mutation($photos:[FacebookPhotoInput]!) {
 				updatePhotos(photos: $photos)
 			}
 		`, {photos: formated});
-		alert('yayayayay');
 	}
 	
   render() {
