@@ -37,6 +37,7 @@ class MessagesList extends AppComponent {
 			let data = await this.app.graphql(`
 				query {
 					matches {
+						_id
 						firstName
 						resorts {
 							name
