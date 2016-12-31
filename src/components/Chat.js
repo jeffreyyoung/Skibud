@@ -1,26 +1,26 @@
 import { GiftedChat } from 'react-native-gifted-chat';
 import React, { Component } from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, InteractionManager} from 'react-native'
 import AppComponent from './../models/AppComponent.js'
 import _ from 'lodash';
 import realm from './../realm';
 import moment from 'moment';
+
 class Chat extends AppComponent {
 	constructor(props) {
 		super(props);
-		this.messages = realm.objects('Message')
 		this.state = {
-			messages: []
+			messages: [],
+			showLoadingView: true
 		};
 		this.onSend = this.onSend.bind(this);
 		
 	}
 
 	formatMessages(messages = []) {
-		console.log('FORMATTING MESSAGES');
 		return _.chain(messages)
 		.filter(m => {
-			return m.to == this.props._id || m.from == this.props._id || true;
+			return m.to == this.props._id || m.from == this.props._id;
 		})
 		.map(message => {
 			let user = {};
@@ -47,11 +47,6 @@ class Chat extends AppComponent {
 			return moment.utc(b.createdAt).diff(moment.utc(a.createdAt));
 		})
 	}
-
-	componentDidMount() {
-		//TODO figure out filtering in realm
-		let messages = realm.objects('Message');
-	}
 	
 	addRealmMessagesToState( realmMessages ) {
 		
@@ -62,13 +57,16 @@ class Chat extends AppComponent {
 		})
 	}
 	
-	componentWillMount() {
-		this.addRealmMessagesToState(this.messages);
-
-		this.messages.addListener((messages, changes) => {
-			let newMessages = changes.insertions.map( i => messages[i]);
-			this.addRealmMessagesToState(messages);
-		})
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(() => {
+			this.setState({showLoadingView: false});
+			this.messages = realm.objects('Message');
+			this.addRealmMessagesToState(this.messages);
+			this.messages.addListener((messages, changes) => {
+				let newMessages = changes.insertions.map( i => messages[i]);
+				this.addRealmMessagesToState(messages);
+			})
+		});
 	}
 	
 	componentWillUnmount() {
@@ -97,6 +95,7 @@ class Chat extends AppComponent {
   render() {
     return (
       <View style={{backgroundColor: 'white',flex:1, paddingBottom: 50}}>
+	  	{ this.state.showLoadingView ? null : 
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
@@ -105,7 +104,7 @@ class Chat extends AppComponent {
 			name: this.app.user.firstName,
 			avatar: _.get(this.app.user, 'photos[0].thumbnail')
           }}
-        />
+        /> }
       </View>
     );
   }

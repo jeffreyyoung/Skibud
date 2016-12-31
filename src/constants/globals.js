@@ -14,5 +14,6 @@ export let globals = {
 };
 
 //let host = 'https://floating-tor-22975.herokuapp.com';
-//export let host = 'http://localhost:9898';
-export let host = 'http://localhost:49160'//'http://localhost:9898';
+//export let host = 'http://localhost:9898'; //localdev
+//export let host = 'http://localhost:49160'// local docker image
+export let host = 'https://api.outdoorenthusiastsapp.com' //aws

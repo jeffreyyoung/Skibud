@@ -33,7 +33,7 @@ var NavigationBarRouteMapper = {
 			navigator.pop();
 		}
       return(
-        <TouchableOpacity onPress={onBack} style={[{flexDirection: 'row'}, styles.leftButton]}><FIcon style={styles.navBarText} name='chevron-left' size={8} color='white'/><Text style={styles.navBarText}></Text></TouchableOpacity>
+        <TouchableOpacity onPress={onBack} style={[{flexDirection: 'row'}, styles.leftButton]}><FIcon style={styles.navBarText} name='chevron-left' style={{fontSize: 24}} color='white'/><Text style={styles.navBarText}></Text></TouchableOpacity>
       )
     } else {
       return null;
@@ -59,7 +59,7 @@ var NavigationBarRouteMapper = {
 				}
 			})
 		}
-		return (<TouchableOpacity onPress={onEditPress} style={[styles.rightButton]}><FIcon name='edit' size={14} style={styles.navBarText} color='white'/></TouchableOpacity>);
+		return (<TouchableOpacity onPress={onEditPress} style={[styles.rightButton]}><FIcon name='edit' style={{fontSize: 24}} style={styles.navBarText} color='white'/></TouchableOpacity>);
 	}
   }
 }
@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   leftButton: {
-      paddingLeft: 10
+	  paddingLeft: 10,
+	  padding: 10
   },
   rightButton: {
     paddingRight: 10

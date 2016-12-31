@@ -3,9 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import AppEntry from './src/AppEntry'
-
 AppRegistry.registerComponent('SkiApp', () => AppEntry);
