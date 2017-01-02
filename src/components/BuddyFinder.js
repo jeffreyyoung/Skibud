@@ -4,7 +4,7 @@ import { globals } from './../constants/globals'
 import Dimensions from 'Dimensions'
 import _ from 'lodash'
 import BuddyCard from './BuddyCard'
-import SwipeCardsContainer from 'react-native-swipe-cards'
+import SwipeCardsContainer from './SwipeCards'
 import AppComponent from './../models/AppComponent';
 import MatchModal from './MatchModal';
 class BuddyFinder extends AppComponent {

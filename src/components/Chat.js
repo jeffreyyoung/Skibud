@@ -92,22 +92,22 @@ class Chat extends AppComponent {
 		});
 	}
 	
-  render() {
-    return (
-      <View style={{backgroundColor: 'white',flex:1, paddingBottom: 50}}>
-	  	{ this.state.showLoadingView ? null : 
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={this.onSend}
-          user={{
-            _id: this.app.user._id,
-			name: this.app.user.firstName,
-			avatar: _.get(this.app.user, 'photos[0].thumbnail')
-          }}
-        /> }
-      </View>
-    );
-  }
+	render() {
+		return (
+			<View style={{backgroundColor: 'white',flex:1, paddingBottom: 50}}>
+			{ this.state.showLoadingView ? null : 
+				<GiftedChat
+				messages={this.state.messages}
+				onSend={this.onSend}
+				user={{
+					_id: this.app.user._id,
+					name: this.app.user.firstName,
+					avatar: _.get(this.app.user, 'photos[0].thumbnail')
+				}}
+				/> }
+				</View>
+			);
+		}
 }
 
 export default Chat;

@@ -105,8 +105,6 @@ export default class MainNavigator extends Component {
       
       renderScene={(route, navigator) => {
         uiState.addNavigator(uiState.selectedTab, navigator);
-        console.log('pushing to route: ', route.scene);
-		console.log('hereeeee', uiState.selectedTab, route);
         switch (route.scene) {
           case 'chat':
             return <Chat {...route.props} navigator={navigator} />
