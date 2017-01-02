@@ -123,7 +123,7 @@ class BuddyFinder extends AppComponent {
 					this.numberOfUserRequestsMade+=1;
 					//if there's no users make another request for users
 					this.getSwipableUsers();
-				}, 1000 * 5 * this.numberOfUserRequestsMade)
+				}, 1000 * 30)
 			}
 		}, 500)
 	}

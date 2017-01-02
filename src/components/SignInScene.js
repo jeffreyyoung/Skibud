@@ -54,12 +54,13 @@ class SignInScene extends AppComponent {
           this.setState({isSigningIn: false});
           this.app.ui.launchSegway('InitialSettingsScene')
           return 'yay';
-	  }, 500)
+	  }, 1000)
         
     } catch (e) {
 	alert('Unable to sign in');
       console.error('failed request')
-      this.setState({isSigningIn: false});
+      setTimeout(his.setState({isSigningIn: false}), 500);
+	  
       this.alert('There was an error logging in...');
     }
   }

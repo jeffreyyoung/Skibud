@@ -63,20 +63,20 @@ class MessagesList extends AppComponent {
 		this.refresh();
 	}
 	
-  render() {
-    return (
-      <ListView
-	  	refreshControl={
-			<RefreshControl
+	render() {
+		return (
+			<ListView
+			refreshControl={
+				<RefreshControl
 				refreshing={this.state.refreshing}
 				onRefresh={this.refresh.bind(this)}
+				/>
+			}
+			dataSource={this.state.rows}
+			renderRow={rowData => <FriendCell {...rowData} navigator={this.props.navigator}/>}
 			/>
-		}
-        dataSource={this.state.rows}
-        renderRow={rowData => <FriendCell {...rowData} navigator={this.props.navigator}/>}
-      />
-    )
-  }
+		)
+	}
 }
 
 export default MessagesList
